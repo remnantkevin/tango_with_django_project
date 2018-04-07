@@ -17,7 +17,7 @@ def index(request):
     context_dict = {'categories': category_list}
     return render(request, 'rango/index.html', context_dict)
 
-def details(request, ):
+def details(request, id):
     return render(request, )
 
 def about(request):
