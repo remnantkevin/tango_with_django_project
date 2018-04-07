@@ -1,9 +1,10 @@
 # Files
-*.pyc
-**/*.pyc
 db.sqlite3
 
 # Folders
 media/**
 static/images/
 venv/**
+venv
+
+**/__pycache__/
