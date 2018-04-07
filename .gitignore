@@ -2,9 +2,9 @@
 db.sqlite3
 
 # Folders
-media/**
-static/images/
-venv/**
-venv
+/media/
+/static/images/
+/venv/
 
-**/__pycache__/
+*.pyc
+__pycache__/
