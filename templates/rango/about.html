@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>About</title>
+  </head>
+  <body>
+    <p>This tutorial has been put together by Kevin.</p>
+    <img src="{% static 'images/dog_1.jpg' %}" alt="Picture of a dog">
+    <p>This is a picture of a cat:</p>
+    <img src="{{MEDIA_URL}}images/cat_1.jpg" alt="Picture of a cat">
+  </body>
+</html>
