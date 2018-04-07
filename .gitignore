@@ -1,2 +1,8 @@
+# Files
 *.pyc
 db.sqlite3
+
+# Folders
+media/
+static/images/
+venv/
