@@ -36,6 +36,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# While django.contrib.auth provides Django with access to the provided authentication system, the
+# package django.contrib.contenttypes is used by the authentication app to track models installed
+# in your database.
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,8 +47,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango',
+    'registration',  #? how does sjango know where to find this?
 ]
 
+# It is the SessionMiddleware middleware that enables the creation of unique sessionid cookies.
+# There are different ways to store session information -- you could store everything in a file,
+# in a database, or even in a in-memory cache. The most straightforward approach is to use the
+# django.contrib.sessions application to store session information in a Django model/database
+# (specifically, the model django.contrib.sessions.models.Session).
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -88,6 +97,16 @@ DATABASES = {
     }
 }
 
+# Password hashing
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -98,6 +117,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 9,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -106,6 +128,19 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# If decorator login_required fails, redirect users to this URL.
+# LOGIN_URL = '/rango/login'
+
+
+# ---- DJANGO-REGISTRATION-REDUX ----
+
+REGISTRATION_OPEN = True  # If True, user can register
+ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window
+REGISTRATION_AUTO_LOGIN = True  # If True, the user will automatically be logged in if they register successfully
+LOGIN_REDIRECT_URL = '/rango/'  # Where the user is redirected to after they successfully log in
+LOGIN_URL = '/accounts/login/'  # The page users are redirected to if they are not logged in and attempt to access a page that requires authentication
+
 
 
 # Internationalization

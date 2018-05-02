@@ -1,0 +1,176 @@
+#author {
+  color: red;
+  text-align: center;
+  font-style: italic;
+}
+
+/* li a {
+  color: green;
+} */
+
+/* .category_link {
+  color: red;
+}
+
+.page_link {
+  color: orange;
+} */
+
+h1 {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+}
+
+.red {
+  color: red;
+}
+
+.red-border-all {
+  border-style: solid;
+  border-width: 0.5em;
+  border-color: red;
+}
+
+.red-border-left {
+  border-style: solid;
+  border-width: 0 0 0 0.5em;  /* doesn't default to zero, so need to be explicit */
+  border-left-color: red;
+}
+
+.red-background {
+  background-color: #ff0000;
+}
+
+#dog-picture {
+  background-image: url('../../images/dog_1.jpg');
+  background-color: #00ff00;
+}
+
+/* --------------------- */
+
+.container {
+  border: 1px solid black;
+  padding: 5px;
+  overflow: hidden;
+}
+
+.red-background {
+  border: 1px solid black;
+  background-color: red;
+  float: left;
+}
+
+.yellow-background {
+  border: 1px solid black;
+  background-color: yellow;
+  float: right;
+}
+
+
+/* --------------------- */
+
+
+.container {
+  border: 1px solid black;
+  height: 200px;
+}
+
+.red {
+  color: black;
+  border: 1px solid black;
+  background-color: red;
+  float: right;
+  position: relative;
+  /* top: 100px;
+  left: 100px; */
+  right: 100px;
+}
+
+.yellow {
+  border: 1px solid black;
+  background-color: yellow;
+
+  position: relative;
+  bottom: 10px;
+  right: 10px;
+}
+
+
+/* --------------------- */
+
+.container-abs {
+  border: 1px solid black;
+  height: 70px;
+
+  position: relative;
+}
+
+.yellow-abs {
+  border: 1px solid black;
+  background-color: yellow;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.red-abs {
+  border: 1px solid black;
+  background-color: red;
+
+  float: right; /* absolute positioning ignores any other positioning properties applied to an element */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+/* --------------------- */
+
+
+.sample-list {
+  list-style-type: none;
+}
+
+.sample-list li {
+  display: inline;
+  background-color: #333333;
+  color: #FFFFFF;
+  padding: 10px;
+}
+
+.sample-list a {
+  color: white;
+  text-decoration: none;
+}
+
+/* a:hover {
+  color: green;
+} */
+
+.dark {
+  background-color: black;
+}
+
+.dark a {
+  color: white;
+  text-decoration: none;
+}
+
+.dark a:hover {
+  color: aqua;
+  text-decoration: underline;
+}
+
+.light {
+  background-color: white;
+}
+
+.light a {
+  color: black;
+  text-decoration: none;
+}
+
+.light a:hover {
+  color: aqua;
+  text-decoration: underline;
+}

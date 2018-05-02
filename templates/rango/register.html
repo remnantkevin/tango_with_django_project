@@ -1,0 +1,41 @@
+{% extends 'rango/base_bootstrap.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+  Register
+{% endblock %}
+
+{% block body_block %}
+  <h1>Register for Rango</h1>
+  {% if registered %}
+    <strong>You have been successfully registered.</strong> <br/>
+    <a href=" {% url 'index' %} ">Return to homepage</a>
+  {% else %}
+  {% comment %}
+    In the <form> element, we have included the attribute enctype . This is because if the user
+    tries to upload a picture, the response from the form may contain binary data - and may be quite
+    large. The response therefore will have to be broken into multiple parts to be transmitted back to
+    the server. As such, we need to denote this with enctype="multipart/form-data" . This tells the
+    HTTP client (the web browser) to package and send the data accordingly. Otherwise, the server
+    won’t receive all the data submitted by the user.
+
+    You should be aware of the enctype attribute for the <form> element. When you want users
+    to upload files from a form, it’s an absolute must to set enctype to multipart/form-data .
+    This attribute and value combination instructs your browser to send form data in a special
+    way back to the server. Essentially, the data representing your file is split into a series of
+    chunks and sent. For more information, check out this great Stack Overflow answer.
+  {% endcomment %}
+    <form id="user_form" action=" {% url 'rango:register' %} " method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {% comment %}
+        We have used the as_p template function on the user_form and profile_form . This wraps
+        each element in the form in a paragraph (denoted by the <p> HTML tag). This ensures that each
+        element appears on a new line.
+      {% endcomment %}
+      {{ user_form.as_p }}
+      {{ profile_form.as_p }}
+      <input type="submit" name="submit" value="Register">
+    </form>
+  {% endif %}
+{% endblock %}

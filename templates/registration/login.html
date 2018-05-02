@@ -1,0 +1,32 @@
+{% extends "rango/base_bootstrap.html" %}
+{% load static %}
+
+{% block body_block %}
+  <div class="mt-5 row">
+    <div class="offset-4 col-4">
+      <form class="form-signin" method="post" action="." >  {# ? #}
+        {% csrf_token %}
+
+        {% comment %}
+        {{ form.as_p}}  {# how know what context variables you have access to? #}
+        {% endcomment %}
+
+        <h2 class="h3 mb-3 font-weight-normal">Please sign in</h2>
+
+        <label for="id_username" class="sr-only">Username</label>
+        <input type="text" name="username" id="id_username" class="form-control" placeholder="Username" required autofocus>
+        <label for="id_password" class="sr-only">Password</label>
+        <input type="text" name="password" id="id_password" class="form-control" placeholder="Password" required>
+
+        {# <input type="submit" value="Log in"> #}
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Log in</button>
+
+        <input type="hidden" name="next" value="{{ next }}">  {# ? #}
+      </form>
+    </div>
+  </div>
+  <p class="text-center">
+    Not a member?
+    <a href="{% url 'registration_register' %}">Register</a>
+  </p>
+{% endblock %}

@@ -1,9 +1,44 @@
 from django import forms
-from rango.models import Category, Page
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+from rango.models import Category, Page, UserProfile
 
 #? How does it know which fields link up whith which fields of the model? Answer: Order
 #? How label input? e.g. Name:
 #? How style errors etc.?
+
+# You’ll also notice that UserForm includes a definition of the password attribute. While a User model
+# instance contains a password attribute by default, the rendered HTML form element will not hide
+# the password. If a user types a password, the password will be visible. By updating the password
+# attribute, we can specify that the CharField instance should hide a user’s input from prying eyes
+# through use of the PasswordInput() widget.
+#! This is what Tango uses, and so it doesn't use validation for some reason.
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+
+class UserCreateForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ("username", "email")
+
+# For the user field within UserProfile model, we will need to make this
+# association when we register the user. This is because when we create a
+# UserProfile instance, we won’t yet have the User instance to refer to.
+class UserProfileForm(forms.ModelForm):
+    website = forms.URLField(required=False)
+    picture = forms.ImageField(required=False)
+
+    class Meta:
+        model = UserProfile
+        fields = ('website', 'picture')  # or fields = exclude('user',)
+
 
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the category name.")
@@ -13,8 +48,8 @@ class CategoryForm(forms.ModelForm):
     # This is one way to set the field to zero by default. And since the fields
     # will be hidden the user won’t be able to enter a value for these fields.
     #? What else can widget?
-    views = forms.IntegerField(initial=12)
-    likes = forms.IntegerField(initial=89)
+    views = forms.IntegerField(widget=forms.HiddenInput(),initial=0)
+    likes = forms.IntegerField(widget=forms.HiddenInput(),initial=0)
     slug = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     # Inline class to provide additional information  on the form.
@@ -29,8 +64,8 @@ class CategoryForm(forms.ModelForm):
 
 
 class PageForm(forms.ModelForm):
-    title = forms.CharField(max_length=128, help_text="Please enter the title of the page.")
-    url = forms.URLField(max_length=200, help_text="Please enter the URL of the page.")
+    title = forms.CharField(max_length=128, help_text="Title:")
+    url = forms.URLField(max_length=200, help_text="URL:")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
 
     class Meta:
@@ -42,3 +77,14 @@ class PageForm(forms.ModelForm):
         # Here, we are hiding the foreign key.
         # fields = ('title', 'url', 'views')
         exclude = ('category',)
+
+    def clean(self):
+        #? Don't I have to call super here and run the clean method on the parent or does this happen by default?
+        cleaned_data = self.cleaned_data
+        url = cleaned_data.get('url')
+
+        if url and not url.startswith('http://'):
+            url = "http://" + url
+            cleaned_data['url'] = url
+
+        return cleaned_data

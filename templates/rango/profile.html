@@ -1,0 +1,24 @@
+{% extends "rango/base_bootstrap.html" %}
+{% load static %}
+
+{% block title_block %} {{ selecteduser.username }} {% endblock %}
+
+{% block body_block %}
+
+<h1>{{ selecteduser.username|upper }}</h1>
+<img src="{{ MEDIA_URL }}{{ userprofile.picture }}" width=300 height=300 alt="{{ selecteduser.username }}">
+<br />
+<div class="">
+  {% if selecteduser.username == user.username %}
+    <form action="." method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Update" />
+    </form>
+  {% else %}
+    <p>
+      <strong>Website: </strong> <a href="{{ userprofile.website }}">{{ userprofile.website }}</a>
+    </p>
+  {% endif %}
+</div>
+{% endblock %}
