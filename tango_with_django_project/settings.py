@@ -31,7 +31,7 @@ SECRET_KEY = 'ernhkpped(y05#hjry^#&xb73f6t%prn@%333(-8%foo(gz1$g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['remnantkevin.pythonanywhere.com']
 
 
 # Application definition
